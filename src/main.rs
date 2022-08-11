@@ -1,5 +1,13 @@
+#[macro_use] extern crate diesel;
+
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, middleware};
 use diesel::{r2d2::{ConnectionManager, self}, MysqlConnection};
+
+mod daos;
+mod dtos;
+mod models;
+mod schema;
+mod services;
 
 #[get("/")]
 async fn hello() -> impl Responder {

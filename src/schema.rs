@@ -3,9 +3,9 @@ table! {
         id -> Integer,
         title -> Varchar,
         body -> Text,
-        status -> Enum,
-        created_at -> Nullable<Datetime>,
-        updated_at -> Nullable<Datetime>,
+        // status -> Enum,
+        created_at -> Datetime,
+        updated_at -> Datetime,
     }
 }
 
@@ -15,8 +15,8 @@ table! {
         user_id -> Integer,
         token -> Varchar,
         expires_at -> Datetime,
-        created_at -> Nullable<Datetime>,
-        updated_at -> Nullable<Datetime>,
+        created_at -> Datetime,
+        updated_at -> Datetime,
     }
 }
 
@@ -25,8 +25,8 @@ table! {
         id -> Integer,
         email -> Varchar,
         password -> Varchar,
-        created_at -> Nullable<Datetime>,
-        updated_at -> Nullable<Datetime>,
+        created_at -> Datetime,
+        updated_at -> Datetime,
     }
 }
 

@@ -11,7 +11,6 @@ pub struct UserDao<'a> {
 }
 
 impl<'a> UserDao<'a> {
-
     pub fn new(connection: &'a MysqlConnection) -> Self {
         UserDao { connection }
     }

@@ -15,7 +15,7 @@ impl<'a> UserDao<'a> {
         UserDao { connection }
     }
 
-    pub fn create(&self, user_dto: UserCreationDto) -> Result<User, Box<dyn Error>> {
+    pub fn create(&self, user_dto: UserCreationDto) -> Result<User, Box<dyn Error + Send + Sync>> {
         Ok(self.connection.transaction::<_, diesel::result::Error, _>(move || {
             diesel::insert_into(users)
                 .values(&user_dto)

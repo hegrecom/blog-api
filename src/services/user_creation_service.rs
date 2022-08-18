@@ -18,7 +18,7 @@ impl<'a> UserCreationService<'a> {
         UserCreationService { connection, user_dto, password_salt, }
     }
 
-    pub fn run(&self) -> Result<User, Box<dyn Error>> {
+    pub fn run(&self) -> Result<User, Box<dyn Error + Send + Sync>> {
         let user_dto = UserCreationDto {
             email: self.user_dto.email.to_owned(),
             password: Self::encrypt_password(&self.user_dto.password, self.password_salt.as_bytes().try_into().unwrap())?,

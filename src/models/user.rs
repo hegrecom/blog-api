@@ -1,7 +1,8 @@
 use chrono::NaiveDateTime;
 use diesel::Queryable;
+use serde::Serialize;
 
-#[derive(Queryable)]
+#[derive(Serialize, Queryable)]
 pub struct User {
     pub id: i32,
     pub email: String,

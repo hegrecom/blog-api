@@ -5,8 +5,8 @@ use crate::app_config::AppConfig;
 use crate::dtos::UserCreationDto;
 use crate::services::UserCreationService;
 
-#[post("")]
-pub async fn create(pool: web::Data<DbPool>, app_config: web::Data<AppConfig>, request_body: web::Json<UserCreationDto>) -> Result<impl Responder> {
+#[post("/sign_up")]
+pub async fn sign_up(pool: web::Data<DbPool>, app_config: web::Data<AppConfig>, request_body: web::Json<UserCreationDto>) -> Result<impl Responder> {
     let user = web::block(move || {
         let conn = pool.get()?;
         let service = UserCreationService::new(&conn, request_body.into_inner(), &app_config.password_salt);

@@ -33,7 +33,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .service(
                 web::scope("/users")
-                    .service(users_controller::create),
+                    .service(users_controller::sign_up),
             )
     })
     .bind(("127.0.0.1", 8080))?

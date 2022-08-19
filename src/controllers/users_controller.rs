@@ -2,7 +2,7 @@ use actix_web::{post, HttpResponse, Responder, Result, web};
 
 use crate::DbPool;
 use crate::app_config::AppConfig;
-use crate::dtos::UserCreationDto;
+use crate::dtos::{UserCreationDto, UserCreatedDto};
 use crate::services::UserCreationService;
 
 #[post("/sign_up")]
@@ -15,7 +15,6 @@ pub async fn sign_up(pool: web::Data<DbPool>, app_config: web::Data<AppConfig>, 
     .await?
     .map_err(actix_web::error::ErrorInternalServerError)?;
 
-
-    Ok(HttpResponse::Ok().json(user))
+    Ok(HttpResponse::Ok().json(UserCreatedDto::from(user)))
 }
 

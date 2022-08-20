@@ -25,5 +25,10 @@ impl<'a> UserDao<'a> {
                 })
         })?)
     }
+
+    pub fn find_by_email(&self, user_email: &str) -> Result<Option<User>, Box<dyn Error + Send + Sync>> {
+        Ok(users.filter(email.eq(user_email))
+            .first::<User>(self.connection).optional()?)
+    }
 }
 

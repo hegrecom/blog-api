@@ -10,3 +10,9 @@ pub struct User {
     pub updated_at: NaiveDateTime,
 }
 
+impl User {
+    pub fn authenticate(&self, password: &str) -> bool {
+        self.password == password
+    }
+}
+

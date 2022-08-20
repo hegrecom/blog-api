@@ -2,17 +2,17 @@ use actix_web::{error, HttpResponse, http::{header::ContentType, StatusCode}};
 use derive_more::{Display, Error};
 
 #[derive(Debug, Display, Error)]
-enum Exceptions {
+pub enum Exceptions {
     #[display(fmt = "{}", message)]
-    BadRequest { message: String },
+    BadRequest { message: &'static str },
     #[display(fmt = "{}", message)]
-    Unauthorized { message: String },
+    Unauthorized { message: &'static str },
     #[display(fmt = "{}", message)]
-    Forbidden { message: String },
+    Forbidden { message: &'static str },
     #[display(fmt = "{}", message)]
-    NotFound { message: String },
+    NotFound { message: &'static str },
     #[display(fmt = "{}", message)]
-    Conflict { message: String },
+    Conflict { message: &'static str },
     #[display(fmt = "An internal error occurred. Please try again later")]
     InternalServerError,
 }

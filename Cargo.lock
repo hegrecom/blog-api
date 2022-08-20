@@ -291,6 +291,7 @@ dependencies = [
  "bcrypt",
  "chrono",
  "config",
+ "derive_more",
  "diesel",
  "env_logger",
  "log",

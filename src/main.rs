@@ -7,6 +7,7 @@ mod app_config;
 mod controllers;
 mod daos;
 mod dtos;
+mod exceptions;
 mod models;
 mod schema;
 mod services;

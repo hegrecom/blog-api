@@ -12,8 +12,7 @@ pub async fn sign_up(pool: web::Data<DbPool>, app_config: web::Data<AppConfig>, 
         let service = UserCreationService::new(&conn, request_body.into_inner(), &app_config.password_salt);
         service.run()
     })
-    .await?
-    .map_err(actix_web::error::ErrorInternalServerError)?;
+    .await??;
 
     Ok(HttpResponse::Ok().json(UserCreatedDto::from(user)))
 }
@@ -26,8 +25,7 @@ pub async fn sign_in(pool: web::Data<DbPool>, app_config: web::Data<AppConfig>, 
         let service = UserSigningInService::new(&conn, request_body.into_inner(), &app_config.password_salt);
         service.run()
     })
-    .await?
-    .map_err(actix_web::error::ErrorInternalServerError)?;
+    .await??;
 
     Ok(HttpResponse::Ok().json(UserTokenCreatedDto::from(user_token)))
 }

@@ -1,10 +1,9 @@
-use std::error::Error;
-
 use bcrypt::BcryptError;
 use diesel::MysqlConnection;
 
 use crate::daos::UserDao;
 use crate::dtos::UserCreationDto;
+use crate::exceptions::Exceptions;
 use crate::models::User;
 
 pub struct UserCreationService<'a> {
@@ -18,7 +17,7 @@ impl<'a> UserCreationService<'a> {
         UserCreationService { connection, user_dto, password_salt, }
     }
 
-    pub fn run(&self) -> Result<User, Box<dyn Error + Send + Sync>> {
+    pub fn run(&self) -> Result<User, Exceptions> {
         let user_dto = UserCreationDto {
             email: self.user_dto.email.to_owned(),
             password: Self::encrypt_password(&self.user_dto.password, self.password_salt.as_bytes().try_into().unwrap())?,

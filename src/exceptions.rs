@@ -21,7 +21,12 @@ impl error::ResponseError for Exceptions {
     fn error_response(&self) -> HttpResponse<actix_web::body::BoxBody> {
         HttpResponse::build(self.status_code())
             .insert_header(ContentType::json())
-            .body(())
+            .json(serde_json::json!({
+                "data": {},
+                "meta": {
+                    "message": self.to_string()
+                }
+            }))
     }
 
     fn status_code(&self) -> StatusCode {
@@ -33,6 +38,24 @@ impl error::ResponseError for Exceptions {
             Exceptions::Conflict { message: _ } => StatusCode::CONFLICT,
             Exceptions::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
         }
+    }
+}
+
+impl From<diesel::result::Error> for Exceptions {
+    fn from(_: diesel::result::Error) -> Self {
+        Exceptions::InternalServerError
+    }
+}
+
+impl From<bcrypt::BcryptError> for Exceptions {
+    fn from(_: bcrypt::BcryptError) -> Self {
+        Exceptions::InternalServerError
+    }
+}
+
+impl From<r2d2::Error> for Exceptions {
+    fn from(_: r2d2::Error) -> Self {
+        Exceptions::InternalServerError
     }
 }
 

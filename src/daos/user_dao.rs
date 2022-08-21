@@ -1,8 +1,7 @@
-use std::error::Error;
-
 use diesel::prelude::*;
 
 use crate::dtos::UserCreationDto;
+use crate::exceptions::Exceptions;
 use crate::models::User;
 use crate::schema::users::dsl::*;
 
@@ -15,7 +14,7 @@ impl<'a> UserDao<'a> {
         UserDao { connection }
     }
 
-    pub fn create(&self, user_dto: UserCreationDto) -> Result<User, Box<dyn Error + Send + Sync>> {
+    pub fn create(&self, user_dto: UserCreationDto) -> Result<User, Exceptions> {
         Ok(self.connection.transaction::<_, diesel::result::Error, _>(move || {
             diesel::insert_into(users)
                 .values(&user_dto)
@@ -26,7 +25,7 @@ impl<'a> UserDao<'a> {
         })?)
     }
 
-    pub fn find_by_email(&self, user_email: &str) -> Result<Option<User>, Box<dyn Error + Send + Sync>> {
+    pub fn find_by_email(&self, user_email: &str) -> Result<Option<User>, Exceptions> {
         Ok(users.filter(email.eq(user_email))
             .first::<User>(self.connection).optional()?)
     }

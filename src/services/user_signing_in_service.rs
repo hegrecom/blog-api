@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use bcrypt::BcryptError;
 use chrono::{Utc, Duration};
 use diesel::MysqlConnection;
@@ -21,7 +19,7 @@ impl<'a> UserSigningInService<'a> {
         UserSigningInService { connection, user_dto, password_salt }
     }
 
-    pub fn run(&self) -> Result<UserToken, Box<dyn Error + Send + Sync>> {
+    pub fn run(&self) -> Result<UserToken, Exceptions> {
         let user_dao = UserDao::new(self.connection);
 
         if let Some(user) = user_dao.find_by_email(&self.user_dto.email)? {
@@ -35,10 +33,10 @@ impl<'a> UserSigningInService<'a> {
 
                 Ok(user_token)
             } else {
-                Err(Box::new(Exceptions::Unauthorized { message: "email or password is incorrect" }))
+                Err(Exceptions::Unauthorized { message: "email or password is incorrect" })
             }
         } else {
-            Err(Box::new(Exceptions::Unauthorized { message: "email or password is incorrect" }))
+            Err(Exceptions::Unauthorized { message: "email or password is incorrect" })
         }
     }
 

@@ -33,10 +33,10 @@ impl<'a> UserSigningInService<'a> {
 
                 Ok(user_token)
             } else {
-                Err(Exceptions::Unauthorized { message: "email or password is incorrect" })
+                Err(Exceptions::Unauthorized { message: "email or password is incorrect".to_string() })
             }
         } else {
-            Err(Exceptions::Unauthorized { message: "email or password is incorrect" })
+            Err(Exceptions::Unauthorized { message: "email or password is incorrect".to_string() })
         }
     }
 

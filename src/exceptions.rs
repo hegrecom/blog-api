@@ -1,18 +1,18 @@
-use actix_web::{error, HttpResponse, http::{header::ContentType, StatusCode}};
+use actix_web::{error::{self, JsonPayloadError}, HttpRequest, HttpResponse, http::{header::ContentType, StatusCode}};
 use derive_more::{Display, Error};
 
 #[derive(Debug, Display, Error)]
 pub enum Exceptions {
     #[display(fmt = "{}", message)]
-    BadRequest { message: &'static str },
+    BadRequest { message: String },
     #[display(fmt = "{}", message)]
-    Unauthorized { message: &'static str },
+    Unauthorized { message: String },
     #[display(fmt = "{}", message)]
-    Forbidden { message: &'static str },
+    Forbidden { message: String },
     #[display(fmt = "{}", message)]
-    NotFound { message: &'static str },
+    NotFound { message: String },
     #[display(fmt = "{}", message)]
-    Conflict { message: &'static str },
+    Conflict { message: String },
     #[display(fmt = "An internal error occurred. Please try again later")]
     InternalServerError,
 }
@@ -57,5 +57,9 @@ impl From<r2d2::Error> for Exceptions {
     fn from(_: r2d2::Error) -> Self {
         Exceptions::InternalServerError
     }
+}
+
+pub fn json_error_handler(error: JsonPayloadError, _request: &HttpRequest) -> actix_web::Error {
+    Exceptions::BadRequest { message: error.to_string() }.into()
 }
 

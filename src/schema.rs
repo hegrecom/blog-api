@@ -3,6 +3,7 @@ table! {
     use crate::models::PostStatus;
     posts (id) {
         id -> Integer,
+        user_id -> Integer,
         title -> Varchar,
         body -> Text,
         status -> PostStatus,

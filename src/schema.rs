@@ -1,9 +1,11 @@
 table! {
+    use diesel::sql_types::*;
+    use crate::models::PostStatus;
     posts (id) {
         id -> Integer,
         title -> Varchar,
         body -> Text,
-        // status -> Enum,
+        status -> PostStatus,
         created_at -> Datetime,
         updated_at -> Datetime,
     }

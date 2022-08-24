@@ -12,6 +12,7 @@ chrono = { version = "0.4.19", features = ["serde"] }
 config = "0.13.2"
 derive_more = "0.99.17"
 diesel = { version = "1.4", features = ["chrono", "mysql", "r2d2"] } 
+diesel-derive-enum = { version = "1", features = ["mysql"] }
 env_logger = "0.9"
 log = "0.4"
 r2d2 = "0.8.10"

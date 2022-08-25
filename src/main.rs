@@ -33,6 +33,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             .app_data(app_config.clone())
             .app_data(json_configuration.clone())
+            .wrap(middleware::NormalizePath::trim())
             .wrap(middleware::Logger::default())
             .service(
                 web::scope("/users")

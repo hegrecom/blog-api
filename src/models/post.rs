@@ -5,6 +5,7 @@ use diesel_derive_enum::DbEnum;
 #[derive(Queryable)]
 pub struct Post {
     id: i32,
+    user_id: i32,
     title: String,
     body: String,
     staus: PostStatus,

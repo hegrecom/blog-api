@@ -1,12 +1,12 @@
 table! {
     use diesel::sql_types::*;
-    use crate::models::PostStatus;
+    use crate::models::PostStatusMapping;
     posts (id) {
         id -> Integer,
         user_id -> Integer,
         title -> Varchar,
         body -> Text,
-        status -> PostStatus,
+        status -> PostStatusMapping,
         created_at -> Datetime,
         updated_at -> Datetime,
     }

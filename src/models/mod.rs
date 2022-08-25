@@ -4,5 +4,5 @@ mod post;
 
 pub use user::User;
 pub use user_token::UserToken;
-pub use post::{Post, PostStatus};
+pub use post::{Post, PostStatus, PostStatusMapping};
 

@@ -9,6 +9,7 @@ mod daos;
 mod dtos;
 mod exceptions;
 mod models;
+mod middlewares;
 mod schema;
 mod services;
 
